@@ -9,8 +9,21 @@ const SCHEDULE_START_DATE = "03/29/2018";
 const SCHEDULE_END_DATE = "09/30/2018";
 const TODAYS_DATE = moment().format("MM/DD/YYYY");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+/* GET all MLB teams */
+router.get('/teams', function(req, res, next) {
+  axios.get(BASE_URL + "teams/", {
+    params: {
+      "sportId": "1",
+    }
+  }).then(result => {
+    console.log(result.data);
+    res.json(result.data);
+  });
+});
+
+/* POST */
+/* GET Today's Game Listing. */
+router.get('/todaysgame', function(req, res, next) {
   axios.get(BASE_URL + "schedule/", {
     params: {
       "teamId": "147",
@@ -18,8 +31,9 @@ router.get('/', function(req, res, next) {
       "startDate": TODAYS_DATE,
       "endDate": TODAYS_DATE
     }
-  }).then(res => {
-    console.log(res.data);
+  }).then(result => {
+    console.log(result.data);
+    res.json(result.data);
   });
 });
 
