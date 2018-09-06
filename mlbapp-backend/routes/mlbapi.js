@@ -11,17 +11,33 @@ const TODAYS_DATE = moment().format("MM/DD/YYYY");
 
 /* GET all MLB teams */
 router.get('/teams', function(req, res, next) {
+  let teamParams = {
+    "sportId": "1",
+  };
   axios.get(BASE_URL + "teams/", {
-    params: {
-      "sportId": "1",
-    }
+    params: teamParams
   }).then(result => {
-    console.log(result.data);
+    res.json(result.data.teams.map(
+      team =>
+       { return {"teamName": team.name, "teamId": team.id}; }
+    ));
+  });
+});
+
+/* GET a single MLB Team --> Default will be Yankees */
+router.get('/team', function(req, res, next) {
+  console.log(req.query);
+  let teamParams = Object.assign({
+    "sportId": "1",
+    "teamId": "147",
+  }, req.query);
+  axios.get(BASE_URL + "teams/", {
+    params: teamParams
+  }).then(result => {
     res.json(result.data);
   });
 });
 
-/* POST */
 /* GET Today's Game Listing. */
 router.get('/todaysgame', function(req, res, next) {
   axios.get(BASE_URL + "schedule/", {
