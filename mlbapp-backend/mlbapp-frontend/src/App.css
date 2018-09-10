@@ -1,13 +1,35 @@
 .App {
+  height: 100vh;
+  background-color: rgba(0, 45, 114, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.Container{
+  min-height: 90vh;
+  max-height: 90vh;
+  min-width: 80vw;
+  max-width: 80vw;
+  border-radius: 25px;
+  background-color: rgba(213, 0, 50, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/*
+ - Change CSS based on
+*/
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
 
 .App-header {
-  background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
@@ -21,22 +43,17 @@
   font-size: large;
 }
 
-.Container{
-  margin: 5% 10%;
-  padding: 2% 2%;
-  background-color: rgba(255, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .team-search{
-  width: 25%;
+  width: 28vw;
+  border-radius: 25px;
   padding: 1% 1%;
   margin: 2% 2%;
 }
 
+#mlb-logo{
+  height: 15vh;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

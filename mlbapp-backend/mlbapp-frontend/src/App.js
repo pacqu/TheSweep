@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import TeamContainer from './components/TeamContainer';
+
 import axios from "axios";
 
 class App extends Component {
@@ -9,7 +11,6 @@ class App extends Component {
     super();
     this.state = {
       teamsLoaded: false,
-      selectedTeamId: 0,
       searchedForTeam: "",
       teams: []
     };
@@ -43,23 +44,19 @@ class App extends Component {
     let teamsLoaded = this.state.teamsLoaded;
     let teams = this.state.teams;
     let searchedForTeam = this.state.searchedForTeam;
-    let teamsDivs = <div> Loading Teams </div>;
+    let teamsContainer = <div> Loading Teams </div>;
     if (teamsLoaded){
       if (searchedForTeam.length > 0){
         teams = teams.filter(team =>
           team.teamName.toLowerCase().includes(searchedForTeam.toLowerCase())
         );
       }
-      teamsDivs = teams.map( (team, i) => (
-        <div key={i}>
-          {team.teamName} - {team.teamId}
-        </div>
-      ));
-  }
+      teamsContainer = <TeamContainer teams={teams} />;
+    }
     return (
       <div className="App">
         <div className="Container">
-          <h1> MLBapp</h1>
+          <img id="mlb-logo" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Major_League_Baseball_logo.svg/1200px-Major_League_Baseball_logo.svg.png" />
           <input
             className="team-search"
             name="searchedForTeam"
@@ -68,8 +65,14 @@ class App extends Component {
             placeholder="Search Team Name"
             onChange={this.handleSearchChange}
             />
-          <h3>{searchedForTeam}</h3>
-          {teamsDivs}
+          {/*
+            - Make TeamDisplay Component for each team
+            - List out teams, each in own div
+            - Click div to expand/collapse teamsDivs
+            - Make container for team comps, be able to scroll through
+            */}
+            {/* To be replaced by TeamContainer component */}
+            {teamsContainer}
         </div>
       </div>
     );

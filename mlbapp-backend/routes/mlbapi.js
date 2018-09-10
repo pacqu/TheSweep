@@ -19,14 +19,13 @@ router.get('/teams', function(req, res, next) {
   }).then(result => {
     res.json(result.data.teams.map(
       team =>
-       { return {"teamName": team.name, "teamId": team.id}; }
-    ));
+       { return {"teamName": team.name, "teamId": team.id, "abbreviation": team.abbreviation}; }
+     ));
   });
 });
 
 /* GET a single MLB Team --> Default will be Yankees */
 router.get('/team', function(req, res, next) {
-  console.log(req.query);
   let teamParams = Object.assign({
     "sportId": "1",
     "teamId": "147",
