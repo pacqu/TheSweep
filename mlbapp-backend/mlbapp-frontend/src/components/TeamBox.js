@@ -22,10 +22,10 @@ class TeamBox extends Component {
   componentDidUpdate(prevProps){
     let team = this.props.team;
     let prevTeam = prevProps.team;
-    if (team.teamName !== prevTeam.teamName){
+    if (team.abbreviation !== prevTeam.abbreviation){
       let expandedTeams = this.props.expandedTeams;
       let expanded = false;
-      if (expandedTeams.findIndex(expTeam => expTeam === team.teamName) !== -1 ) expanded = true;
+      if (expandedTeams.findIndex(expTeam => expTeam === team.abbreviation) !== -1 ) expanded = true;
       this.setState({
         expanded: expanded,
         teamInfo: null
@@ -48,9 +48,9 @@ class TeamBox extends Component {
     e.preventDefault();
     let team = this.props.team;
     let expanded = this.state.expanded;
-    if (expanded) this.props.removeFromExpanded(team.teamName);
+    if (expanded) this.props.removeFromExpanded(team.abbreviation);
     else {
-      this.props.addToExpanded(team.teamName);
+      this.props.addToExpanded(team.abbreviation);
       if(!this.state.teamInfo) this.getTeamInfo();
     }
     this.setState({
@@ -62,7 +62,7 @@ class TeamBox extends Component {
     let team = this.props.team;
     let expanded = this.state.expanded;
     let className = "team-box";
-    let boxContents = [<div> {team.teamName} </div>];
+    let boxContents = [<div> {team.teamName} - {team.abbreviation} </div>];
     let teamInfo = this.state.teamInfo;
     if (expanded) {
       className += " expanded";
