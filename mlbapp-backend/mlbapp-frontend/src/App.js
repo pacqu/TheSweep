@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import TeamContainer from './components/TeamContainer';
+import TeamInfo from './components/TeamInfo';
 
 import axios from "axios";
 
@@ -13,7 +14,8 @@ class App extends Component {
       teamsLoaded: false,
       searchedForTeam: "",
       teams: [],
-      lastExpanded: ""
+      lastExpanded: "",
+      expandedInfo: {}
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
@@ -43,26 +45,39 @@ class App extends Component {
 
   getLastExpandedTeam = (expandedList) => {
     if(expandedList.length > 0){
-      this.setState({
-        lastExpanded: expandedList[expandedList.length - 1]
+      axios.get('/mlbapi/team', {params: {teamId: expandedList[expandedList.length - 1].teamId}})
+      .then(res => {
+        this.setState({
+          lastExpanded: expandedList[expandedList.length - 1],
+          expandedInfo: res.data.teams[0]
+        });
       });
     }
-    else this.setState({ lastExpanded:"" });
+    else{
+      this.setState({
+        lastExpanded: {},
+        expandedInfo: {}
+      });
+    }
   }
 
   render() {
     let teamsLoaded = this.state.teamsLoaded;
     let teams = this.state.teams;
+
     let searchedForTeam = this.state.searchedForTeam;
     let lastExpanded = this.state.lastExpanded;
+    let expandedInfo = this.state.expandedInfo;
+
     let teamsContainer = <div> Loading Teams </div>;
-    let teamInfo = <div> Click on a team to see team info! </div>
+
     let appId = "";
     let contId = "";
     if (lastExpanded){
-      appId = lastExpanded + "-app";
-      contId = lastExpanded + "-container";
+      appId = lastExpanded.teamAbb + "-app";
+      contId = lastExpanded.teamAbb + "-container";
     }
+
     if (teamsLoaded){
       if (searchedForTeam.length > 0){
         teams = teams.filter(team =>
@@ -99,7 +114,7 @@ class App extends Component {
                 - If another team is selected while tean is selected, will show info of last chosen team will show
                 - If a team is unselected, will show information the next most recently chosen team, if exists.
             */}
-            {teamInfo}
+            <div><TeamInfo info={expandedInfo} /></div>
           </div>
         </div>
       </div>
