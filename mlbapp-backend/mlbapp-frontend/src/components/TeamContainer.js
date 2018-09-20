@@ -14,13 +14,13 @@ class TeamContainer extends Component {
 
   handleExpansion = (expandedTeam => {
     let expandedTeams = this.state.expandedTeams;
-    let deletedIndex = expandedTeams.findIndex(team => team.teamId === expandedTeam.teamId);
+    let deletedIndex = expandedTeams.findIndex(team => team.id === expandedTeam.id);
     if (deletedIndex !== -1) expandedTeams.splice(deletedIndex, 1);
     else expandedTeams.push(expandedTeam);
     this.setState({
       expandedTeams: expandedTeams
     });
-    this.props.getLastExpandedTeam(expandedTeams);
+    this.props.getExpandedTeams(expandedTeams);
   })
 
 

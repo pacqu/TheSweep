@@ -16,15 +16,15 @@ class TeamBox extends Component {
     e.preventDefault();
     let team = this.props.team;
     this.props.handleExpansion({
-      "teamAbb": team.abbreviation,
-      "teamId": team.teamId
+      "abbreviation": team.abbreviation,
+      "id": team.id
      });
   }
 
   render(){
     let team = this.props.team;
     let className = "team-box";
-    let boxContents = <div> {team.teamName} </div>;
+    let boxContents = <div> {team.name} </div>;
     return (
       <div className={className} onClick={this.handleClick}> {boxContents} </div>
     );

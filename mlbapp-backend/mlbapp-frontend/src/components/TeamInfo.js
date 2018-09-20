@@ -3,6 +3,9 @@ import logo from './../logo.svg';
 import './TeamInfo.css';
 
 import TeamBox from './TeamBox';
+import InfoBox from './InfoBox';
+
+import axios from "axios";
 
 class TeamInfo extends Component {
   constructor(props){
@@ -11,18 +14,17 @@ class TeamInfo extends Component {
 
   render(){
     let teamInfo = this.props.info;
-    if(Object.keys(teamInfo).length !== 0){
-      return (
-        <div className="team-container">
-        <div> Abbreviation: {teamInfo.abbreviation} </div>
-        <div> Division: {teamInfo.division.name} </div>
-        <div> Location: {teamInfo.locationName} </div>
-        </div>
-      );
+    let className = "info-container";
+    let infoContent = <div className={className} > Click on team to load info! </div>
+    if(teamInfo.length > 0){
+      infoContent = []
+      for (var i = 0; i < teamInfo.length; i++){
+        infoContent.push(
+          <InfoBox info={teamInfo[i]} />
+        );
+      }
     }
-    else {
-      return <div className="team-container">Click on team to load info!</div>
-    }
+    return <div className="info-container">{infoContent}</div>
   }
 }
 

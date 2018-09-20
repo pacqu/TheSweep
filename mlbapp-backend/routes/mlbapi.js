@@ -17,10 +17,7 @@ router.get('/teams', function(req, res, next) {
   axios.get(BASE_URL + "teams/", {
     params: teamParams
   }).then(result => {
-    res.json(result.data.teams.map(
-      team =>
-       { return {"teamName": team.name, "teamId": team.id, "abbreviation": team.abbreviation}; }
-     ));
+    res.json(result.data.teams);
   });
 });
 
@@ -39,14 +36,16 @@ router.get('/team', function(req, res, next) {
 
 /* GET Today's Game Listing. */
 router.get('/todaysgame', function(req, res, next) {
-  axios.get(BASE_URL + "schedule/", {
-    params: {
-      "teamId": "147",
-      "sportId": "1",
-      "startDate": TODAYS_DATE,
-      "endDate": TODAYS_DATE
-    }
-  }).then(result => {
+  console.log(req.query);
+  let gameParams = Object.assign({
+    "teamId": "147",
+    "sportId": "1",
+    "startDate": TODAYS_DATE,
+    "endDate": TODAYS_DATE
+  }, req.query);
+  console.log(gameParams);
+  axios.get(BASE_URL + "schedule/", { params: gameParams })
+  .then(result => {
     console.log(result.data);
     res.json(result.data);
   });

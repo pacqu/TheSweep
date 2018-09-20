@@ -15,7 +15,7 @@ class App extends Component {
       searchedForTeam: "",
       teams: [],
       lastExpanded: "",
-      expandedInfo: {}
+      expandedInfo: []
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
@@ -43,20 +43,24 @@ class App extends Component {
     console.log(this.state.searchedForTeam);
   }
 
-  getLastExpandedTeam = (expandedList) => {
+  getExpandedTeams = (expandedList) => {
+    let teams = this.state.teams;
     if(expandedList.length > 0){
-      axios.get('/mlbapi/team', {params: {teamId: expandedList[expandedList.length - 1].teamId}})
-      .then(res => {
+      let expandedInfo = []
+      for (var i = 0; i < expandedList.length; i++){
+        let expandedTeam = expandedList[i];
+        let teamInfo = teams.find(team => team.id === expandedTeam.id);
+        expandedInfo.push(teamInfo);
         this.setState({
           lastExpanded: expandedList[expandedList.length - 1],
-          expandedInfo: res.data.teams[0]
+          expandedInfo: expandedInfo
         });
-      });
+      }
     }
     else{
       this.setState({
         lastExpanded: {},
-        expandedInfo: {}
+        expandedInfo: []
       });
     }
   }
@@ -74,8 +78,8 @@ class App extends Component {
     let appId = "";
     let contId = "";
     if (lastExpanded){
-      appId = lastExpanded.teamAbb + "-app";
-      contId = lastExpanded.teamAbb + "-container";
+      appId = lastExpanded.abbreviation + "-app";
+      contId = lastExpanded.abbreviation + "-container";
     }
 
     if (teamsLoaded){
@@ -84,7 +88,7 @@ class App extends Component {
           team.teamName.toLowerCase().includes(searchedForTeam.toLowerCase())
         );
       }
-      teamsContainer = <TeamContainer teams={teams} getLastExpandedTeam={this.getLastExpandedTeam}/>;
+      teamsContainer = <TeamContainer teams={teams} getExpandedTeams={this.getExpandedTeams}/>;
     }
     return (
       <div className="App" id={appId}>
