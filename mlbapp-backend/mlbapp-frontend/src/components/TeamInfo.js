@@ -20,7 +20,7 @@ class TeamInfo extends Component {
       infoContent = []
       for (var i = 0; i < teamInfo.length; i++){
         infoContent.push(
-          <InfoBox info={teamInfo[i]} />
+          <InfoBox key={teamInfo[i].abbreviation + "-INFO"} info={teamInfo[i]} />
         );
       }
     }

@@ -51,4 +51,14 @@ router.get('/todaysgame', function(req, res, next) {
   });
 });
 
+/* GET Game's Line-Score. */
+router.get('/linescore/:gameId', function(req, res, next) {
+  console.log(req.params);
+  axios.get(BASE_URL + `game/${req.params.gameId}/linescore`)
+  .then(result => {
+    console.log(result.data);
+    res.json(result.data);
+  });
+});
+
 module.exports = router;

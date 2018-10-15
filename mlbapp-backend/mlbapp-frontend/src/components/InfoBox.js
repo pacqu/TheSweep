@@ -21,6 +21,14 @@ class InfoBox extends Component {
       this.setState({
         todaysGame: res.data
       })
+      /*
+      if (res.data
+      this.interval = setInterval( () => {
+        if (Object.keys(this.state.todaysGame).length !== 0 && obj.constructor === Object){
+
+        }
+      },5000);
+      */
     );
   }
 
