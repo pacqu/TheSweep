@@ -1,18 +1,16 @@
-+----+
-+ [UNAMED] MLB APP by Justin Pacquing
-++ Stack
-+++ Front-End
-++++ Create-React-App
-+++ Back-End
-++++ Express-Generator
+* The Sweep
 
-++ Features
-+++ Front-End
-++++ None Yet
-+++ Back-End
-++++ Using MLB StatApi
-+++++ Grabbing All MLB Teams
-+++++ Grabbing Schedule of Given Team
-+++++ Grabbing Today's Game for Given Team
-++++++ Display Game Info
-+----+
+
+** Stack
+*** Front-End
++ Create-React-App
+*** Back-End
++ Express-Generator
+
+** Features
+*** Using MLB StatApi to:
++ Grabbing All MLB Teams
++ Grabbing Schedule of Given Team
++ Grabbing Today's Game for Given Team
++ Display Game Info
+
